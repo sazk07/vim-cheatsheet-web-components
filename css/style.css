@@ -9,6 +9,7 @@ html {
 
 main {
   display: flex;
+  margin: 0 10%;
 }
 
 .flex-child-1 {
@@ -22,3 +23,4 @@ main {
 .flex-child-3 {
   flex: 1;
 }
+
