@@ -5,40 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vim Cheat Sheet</title>
     <link href="css/style.css" rel="stylesheet">
-    <script src="components/glVims.js" type="module"></script>
-    <script src="components/cursorMovement.js" type="module"></script>
-    <script src="components/cutAndPaste.js" type="module"></script>
-    <script src="components/diff.js" type="module"></script>
-    <script src="components/edit.js" type="module"></script>
-    <script src="components/exiting.js" type="module"></script>
-    <script src="components/footer.js" type="module"></script>
-    <script src="components/indentText.js" type="module"></script>
-    <script src="components/insertMode.js" type="module"></script>
-    <script src="components/macros.js" type="module"></script>
-    <script src="components/markingText.js" type="module"></script>
-    <script src="components/marks.js" type="module"></script>
-    <script src="components/registers.js" type="module"></script>
-    <script src="components/searchAndReplace.js" type="module"></script>
-    <script src="components/searchMultipleFiles.js" type="module"></script>
-    <script src="components/tabs.js" type="module"></script>
-    <script src="components/visualCommands.js" type="module"></script>
-    <script src="components/workingWithMultipleFiles.js" type="module"></script>
+    <script src="components/vim.js" type="module"></script>
+    <script src="javascript/script.js" type="module"></script>
   </head>
   <body>
+    <template>
+      <slot name="heading"></slot>
+      <slot name="list"></slot>
+      <slot name="tip" class="well"></slot>
+    </template>
     <header>
       <h1>
         Vim Cheat Sheet
       </h1>
     </header>
     <main>
-      <section class="flex-child-1">
-        <glvims-component></glvims-component>
-      </section>
-      <section class="flex-child-2"></section>
-      <section class="flex-child-3"></section>
-      <footer>
-
-      </footer>
+      <vim-component id="globals" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="cursor-movement" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="insert-mode" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="editing-mode" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="marking-text" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="visual-commands" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="registers" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="special-registers" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="marks" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="macros" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="cut-and-paste" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="indent-text" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="exiting" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="search-and-replace" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="search-multiple-files" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="working-multiple-files" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="tabs" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
+      <vim-component id="diff" class="flex-child">
+        <h2 name="heading" slot="heading" class="heading"></h2>
+        <ul name="list" slot="list" class="list"></ul>
+        <div name="tip" slot="tip" class="tip well"></div>
+      </vim-component>
     </main>
+    <footer>
+    </footer>
   </body>
 </html>

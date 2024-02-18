@@ -1,26 +1,128 @@
+/* TODO: restyle with navbar */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 html {
   box-sizing: border-box;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
 *,
 *:before,
 *:after {
   box-sizing: inherit;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
 }
 
 main {
   display: flex;
-  margin: 0 10%;
+  flex-wrap: wrap;
+  padding: 0 5%;
+  margin: 5%;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 
-.flex-child-1 {
-  flex: 1;
+.flex-child {
+  flex: auto;
 }
 
-.flex-child-2 {
-  flex: 1;
+li {
+  border-bottom: 1px dashed #e0e0e0;
+  line-height: 1.55;
+  padding: 7px 0;
+  list-style-type: none;
 }
 
-.flex-child-3 {
-  flex: 1;
+kbd {
+  background-color: #eee;
+  color: #000;
+  font-family: monospace;
+  font-size: 1.15em;
+  font-weight: bold;
+  padding: 0.27em;
 }
 
+.well {
+  background: #f8f8f8;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  margin-bottom: 20px;
+  padding: 19px;
+  line-height: 26px;
+}
+
+footer {
+  text-align: center;
+}
+
+a {
+  color: #1a65ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Large */
+@media screen and (min-width: 992px) {
+  main {
+    gap: 20px
+  }
+
+  .flex-child {
+    border: 5px solid black;
+    border-radius: 10px;
+    flex: 1 1 20%;
+  }
+  .flex-child > * {
+    padding: 10%;
+  }
+
+  h1,
+  h2 {
+    padding: 2%;
+  }
+}
+
+/* Dark */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    /* Dark background */
+    color: #e0e0e0;
+    /* Light text */
+  }
+
+  h1,
+  h2 {
+    color: #e6e6e6;
+  }
+
+  a {
+    color: #ff6e6e;
+    /* Different link color for dark mode */
+  }
+
+  .well {
+    background: #1a1a1a;
+    /* Darker backgrounds for containers */
+    border-color: #333333;
+    /* Dark borders */
+  }
+
+  kbd {
+    background: #282828;
+    color: #e6e6e6;
+  }
+
+  li {
+    border-bottom: 1px dashed #2f2f2f;
+  }
+
+  .flex-child {
+    border-color: #e0e0e0;
+  }
+}
