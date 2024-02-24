@@ -3,6 +3,7 @@
   "lang": "en_us",
   "lang_tag": "en",
   "global": {
+    "htmlId": "globals",
     "title": "Global",
     "commands": [
       {
@@ -29,6 +30,7 @@
     "tip": "Run <kbd>vimtutor</kbd> in a terminal to learn the first Vim commands."
   },
   "cursorMovement": {
+    "htmlId": "cursor-movement",
     "title": "Cursor movement",
     "commands": [
       {
@@ -213,6 +215,7 @@
   },
   "insertMode": {
     "title": "Insert mode - inserting/appending text",
+    "htmlId": "insert-mode",
     "commands": [
       {
         "keyword": "i",
@@ -287,6 +290,7 @@
   },
   "editing": {
     "title": "Editing",
+    "htmlId": "editing-mode",
     "commands": [
       {
         "keyword": "r",
@@ -368,6 +372,7 @@
   },
   "markingText": {
     "title": "Marking text (visual mode)",
+    "htmlId": "marking-text",
     "commands": [
       {
         "keyword": "v",
@@ -426,6 +431,7 @@
   },
   "visualCommands": {
     "title": "Visual commands",
+    "htmlId": "visual-commands",
     "commands": [
       {
         "keyword": ">",
@@ -459,6 +465,7 @@
   },
   "registers": {
     "title": "Registers",
+    "htmlId": "registers",
     "commands": [
       {
         "keyword": ":reg[isters]",
@@ -485,6 +492,7 @@
   },
   "specialRegisters": {
     "title": "Special registers",
+    "htmlId": "special-registers",
     "commands": [
       {
         "keyword": "0",
@@ -538,6 +546,7 @@
   },
   "marks": {
     "title": "Marks and positions",
+    "htmlId": "marks",
     "commands": [
       {
         "keyword": ":marks",
@@ -604,6 +613,7 @@
   },
   "macros": {
     "title": "Macros",
+    "htmlId": "macros",
     "commands": [
       {
         "keyword": "qa",
@@ -625,6 +635,7 @@
   },
   "cutAndPaste": {
     "title": "Cut and paste",
+    "htmlId": "cut-and-paste",
     "commands": [
       {
         "keyword": "yy",
@@ -724,6 +735,7 @@
   },
   "indentText": {
     "title": "Indent text",
+    "htmlId": "indent-text",
     "commands": [
       {
         "keyword": ">>",
@@ -773,6 +785,7 @@
   },
   "exiting": {
     "title": "Exiting",
+    "htmlId": "exiting",
     "commands": [
       {
         "keyword": ":w",
@@ -804,6 +817,7 @@
   },
   "searchAndReplace": {
     "title": "Search and replace",
+    "htmlId": "search-and-replace",
     "commands": [
       {
         "keyword": "/pattern",
@@ -841,6 +855,7 @@
   },
   "searchMultipleFiles": {
     "title": "Search in multiple files",
+    "htmlId": "search-multiple-files",
     "commands": [
       {
         "keyword": ":vim[grep] / pattern/ {`{file}`}",
@@ -867,6 +882,7 @@
   },
   "workingWithMultipleFiles": {
     "title": "Working with multiple files",
+    "htmlId": "working-multiple-files",
     "commands": [
       {
         "keyword": ":e[dit] file",
@@ -973,6 +989,7 @@
   },
   "tabs": {
     "title": "Tabs",
+    "htmlId": "tabs",
     "commands": [
       {
         "keyword": ":tabnew",
@@ -1017,6 +1034,7 @@
   },
   "diff": {
     "title": "Diff",
+    "htmlId": "diff",
     "commands": [
       {
         "keyword": "zf",
