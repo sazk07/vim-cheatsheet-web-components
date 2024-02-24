@@ -1,40 +1,83 @@
 "use strict";
 
-const fetchData = async (url) => {
+interface Keyword {
+  keyword: string;
+  description: string;
+  additional_keyword2?: string;
+  additional_keyword3?: string;
+}
+
+interface DataChild {
+  htmlId?: string;
+  tip?: string;
+  title?: string;
+  commands: Keyword[];
+}
+
+interface Data {
+  title: string;
+  lang: string;
+  lang_tag: string;
+  footer: string;
+  global: DataChild;
+  cursorMovement: DataChild;
+  insertMode: DataChild;
+  editing: DataChild;
+  markingText: DataChild;
+  visualCommands: DataChild;
+  registers: DataChild;
+  cutAndPaste: DataChild;
+  diff: DataChild;
+  exiting: DataChild;
+  specialRegisters: DataChild;
+  indentText: DataChild;
+  languages: DataChild;
+  macros: DataChild;
+  marks: DataChild;
+  searchAndReplace: DataChild;
+  searchMultipleFiles: DataChild;
+  tabs: DataChild;
+  workingWithMultipleFiles: DataChild;
+}
+
+const fetchData = async (url: string): Promise<Data | Error> => {
   try {
     const dataPromise = await fetch(url);
     if (!dataPromise.ok) {
       throw new Error(dataPromise.statusText);
     }
-    const data = await dataPromise.json();
+    const data: Data = await dataPromise.json();
     if (!data) {
       throw new Error("No data");
     }
     return data;
   } catch (error) {
-    console.error(error.message);
-    return error;
+    console.error((error as Error).message);
+    return error as Error;
   }
 };
 
-const retrieveObject = (data, node) => {
-  const dataVals = Object.values(data);
-  const dataChild = dataVals.find((object) => {
+const retrieveObject = (data: Data, node: HTMLElement) => {
+  const dataVals: Array<string | DataChild> = Object.values(data);
+  const dataChild: DataChild = dataVals.find((object) => {
     if (typeof object === "object" && object !== null && "htmlId" in object) {
       return object.htmlId === node?.id;
     }
     return false;
-  });
+  }) as DataChild;
   return dataChild;
 };
 
-const createCustomHeadings = (elemData, heading) => {
+const createCustomHeadings = (
+  elemData: DataChild,
+  heading: HTMLHeadingElement,
+) => {
   heading.textContent = elemData?.title ?? "";
 };
 
-const createCustomLists = (elemData, vcUl) => {
+const createCustomLists = (elemData: DataChild, vcUl: HTMLUListElement) => {
   const kbdArray = ["<kbd>", "</kbd>"];
-  const sanitizeKeyword = (str) => {
+  const sanitizeKeyword = (str: string | undefined): string | undefined => {
     return str?.replace(/</g, "&lt;");
   };
   const { commands } = elemData;
@@ -44,9 +87,13 @@ const createCustomLists = (elemData, vcUl) => {
     additional_keyword3,
     description,
   } of commands) {
-    const keywords = [keyword, additional_keyword2, additional_keyword3]
+    const keywords: string[] = [
+      keyword,
+      additional_keyword2,
+      additional_keyword3,
+    ]
       .map(sanitizeKeyword)
-      .filter((kw) => kw !== undefined);
+      .filter((kw) => kw !== undefined) as string[];
 
     const keywordString = keywords
       .map((kw, idx) => {
@@ -61,17 +108,16 @@ const createCustomLists = (elemData, vcUl) => {
   }
 };
 
-const createCustomTips = (elemData, tip) => {
+const createCustomTips = (elemData: DataChild, tip: HTMLDivElement) => {
   tip.innerHTML = elemData?.tip ?? "";
   if (!tip.innerHTML) {
     tip.style.display = "none";
   }
 };
 
-const main = async () => {
+const main = async (): Promise<void> => {
   // Fetch data
   const data = await fetchData("data/en_us.json");
-
   if (data instanceof Error) {
     const p = document.createElement("p");
     p.textContent = data.message;
@@ -80,36 +126,37 @@ const main = async () => {
   }
 
   // get relevant custom components
-  const vimComponentNodes = Array.from(
+  const vimComponentNodes: HTMLElement[] = Array.from(
     document.querySelectorAll("vim-component"),
   );
 
   // get relevant objects from data
-  const dataChild = vimComponentNodes.map((node) => retrieveObject(data, node));
+  const dataChild: DataChild[] = vimComponentNodes
+    .map((node) => retrieveObject(data, node))
 
   // Headings, lists and tips
   for (const elemData of dataChild) {
-    const vimComponent =
+    const vimComponent: HTMLElement =
       document.querySelector(`#${elemData.htmlId}`) ??
       document.createElement("vim-component");
-    const vcHeading =
+    const vcHeading: HTMLHeadingElement =
       vimComponent.querySelector("[name='heading']") ??
       document.createElement("h2");
     createCustomHeadings(elemData, vcHeading);
-    const vcUl =
+    const vcUl: HTMLUListElement =
       vimComponent.querySelector("[name='list']") ??
       document.createElement("ul");
     createCustomLists(elemData, vcUl);
-    const vcTip =
+    const vcTip: HTMLDivElement =
       vimComponent.querySelector("[name='tip']") ??
       document.createElement("div");
     createCustomTips(elemData, vcTip);
   }
 
   // Footer
-  const footer =
+  const footer: HTMLElement =
     document.querySelector("footer") ?? document.createElement("footer");
-  const anchor = document.createElement("a");
+  const anchor: HTMLAnchorElement = document.createElement("a");
   anchor.setAttribute(
     "href",
     "https://github.com/sazk07/vim-cheatsheet-web-components",

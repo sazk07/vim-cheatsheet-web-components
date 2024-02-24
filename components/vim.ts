@@ -1,4 +1,5 @@
 "use strict";
+
 class VimComponent extends HTMLElement {
   constructor() {
     super();
@@ -12,13 +13,15 @@ class VimComponent extends HTMLElement {
         throw new Error("Template not found");
       }
       const linkElem = document.createElement("link");
+
       // link shadow stylesheet
       linkElem.setAttribute("rel", "stylesheet");
       linkElem.setAttribute("href", "css/shadowstyle.css");
+
       shadow.appendChild(linkElem);
       shadow.appendChild(vimTemplate.content.cloneNode(true));
     } catch (error) {
-      console.error(error.message);
+      console.error((error as Error).message)
     }
   }
 }

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vim Cheat Sheet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <script src="components/vim.js" type="module"></script>
     <script src="javascript/script.js" type="module"></script>
@@ -12,6 +15,7 @@
     <template>
       <slot name="heading"></slot>
       <slot name="list"></slot>
+      <slot name="eg"></slot>
       <slot name="tip" class="well"></slot>
     </template>
     <header>
@@ -25,7 +29,7 @@
         <ul name="list" slot="list" class="list"></ul>
         <div name="tip" slot="tip" class="tip well"></div>
       </vim-component>
-      <vim-component id="cursor-movement" class="flex-child">
+      <vim-component id="exiting" class="flex-child">
         <h2 name="heading" slot="heading" class="heading"></h2>
         <ul name="list" slot="list" class="list"></ul>
         <div name="tip" slot="tip" class="tip well"></div>
@@ -80,7 +84,7 @@
         <ul name="list" slot="list" class="list"></ul>
         <div name="tip" slot="tip" class="tip well"></div>
       </vim-component>
-      <vim-component id="exiting" class="flex-child">
+      <vim-component id="cursor-movement" class="flex-child">
         <h2 name="heading" slot="heading" class="heading"></h2>
         <ul name="list" slot="list" class="list"></ul>
         <div name="tip" slot="tip" class="tip well"></div>
@@ -93,6 +97,7 @@
       <vim-component id="search-multiple-files" class="flex-child">
         <h2 name="heading" slot="heading" class="heading"></h2>
         <ul name="list" slot="list" class="list"></ul>
+        <p slot="eg">e.g.</p>
         <div name="tip" slot="tip" class="tip well"></div>
       </vim-component>
       <vim-component id="working-multiple-files" class="flex-child">
