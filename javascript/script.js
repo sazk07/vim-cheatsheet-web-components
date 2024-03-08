@@ -67,7 +67,6 @@ const createCustomTips = (elemData, tip) => {
     tip.style.display = "none";
   }
 };
-
 const main = async () => {
   // Fetch data
   const data = await fetchData("data/en_us.json");
