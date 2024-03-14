@@ -54,12 +54,36 @@ html {
 }
 
 body {
-  margin: 0;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
   background-color: var(--color-bg);
   color: var(--color-fg);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  padding: 2rem;
+}
+
+button {
+  border-radius: 100px;
+  height: 3rem;
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  color: var(--color-fg);
+  background-color: var(--color-bg);
+  border: 0.25rem solid var(--color-fg);
+  transition: all 0.2s ease-in-out;
+}
+
+.icon {
+  width: 0.7rem;
+  height: 0.7rem;
+  vertical-align: middle;
+  fill: currentColor;
 }
 
 h1,
@@ -68,9 +92,7 @@ h2 {
 }
 
 h1 {
-  font-size: 3.2em;
   line-height: 1.1;
-  text-align: center;
   margin-bottom: 10%;
 }
 
@@ -123,8 +145,7 @@ kbd {
 
 footer {
   text-align: center;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 a {
@@ -140,12 +161,23 @@ a:hover {
 
 /* Large */
 @media screen and (min-width: 992px) {
+  header {
+    padding: 0 5rem;
+    justify-content: space-between;
+    flex-flow: row;
+  }
+
   main {
     gap: 20px;
   }
 
   h1 {
-    margin: 10px;
+    margin: 0px;
+  }
+
+  .icon {
+    width: 1rem;
+    height: 1rem;
   }
 
   .flex-child {
@@ -153,13 +185,16 @@ a:hover {
     border-radius: 10px;
     flex: 1 1 20%;
   }
+
   .flex-child > *:not(.well):not(p) {
     padding: 20px;
   }
+
   .flex-child > p {
     padding: 0% 0% 2% 5px;
     margin-left: 5%;
   }
+
   .well {
     margin-left: 5px;
     margin-right: 5%;
@@ -170,4 +205,3 @@ a:hover {
     padding: 2%;
   }
 }
-
