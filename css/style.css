@@ -21,6 +21,31 @@ html {
   font-style: normal;
 }
 
+[data-theme="light"] {
+  --color-bg: var(--alice-blue);
+  --color-fg: var(--obsidian);
+  --color-bg-kbd: var(--gainsboro);
+  --color-fg-kbd: var(--oil);
+  --color-bg-well: var(--snow);
+  --color-fg-well: var(--obsidian);
+  --color-fg-anchor: #646cff;
+  --color-fg-anchor-hover: #535bf2;
+  --color-border-flex-child: var(--obsidian);
+  --color-border-li: #e0e0e0;
+}
+
+[data-theme="dark"] {
+  --color-bg: var(--obsidian);
+  --color-fg: var(--alice-blue);
+  --color-bg-kbd: #333333;
+  --color-fg-kbd: var(--alice-blue);
+  --color-bg-well: var(--charcoal-gray);
+  --color-fg-well: var(--snow);
+  --color-fg-anchor: #ff6e6e;
+  --color-border-flex-child: #e0e0e0;
+  --color-border-li: var(--obsidian);
+}
+
 *,
 *:before,
 *:after {
@@ -33,13 +58,13 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: var(--snow);
-  color: var(--oil);
+  background-color: var(--color-bg);
+  color: var(--color-fg);
 }
 
 h1,
 h2 {
-  color: var(--obsidian);
+  color: var(--color-fg);
 }
 
 h1 {
@@ -72,15 +97,15 @@ ul {
 }
 
 li {
-  border-bottom: 1px dashed #e0e0e0;
+  border-bottom: 1px dashed var(--color-border-li);
   line-height: 1.55;
   padding: 7px 0;
   list-style-type: none;
 }
 
 kbd {
-  background-color: var(--gainsboro);
-  color: var(--oil);
+  background-color: var(--color-bg-kbd);
+  color: var(--color-fg-kbd);
   font-family: monospace;
   font-size: 1.15em;
   font-weight: bold;
@@ -88,7 +113,8 @@ kbd {
 }
 
 .well {
-  background: var(--alice-blue);
+  background: var(--color-bg-well);
+  color: var(--color-fg-well);
   font-family: "Roboto", Arial, Helvetica, sans-serif;
   margin-bottom: 20px;
   padding: 19px;
@@ -103,12 +129,12 @@ footer {
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--color-fg-anchor);
   text-decoration: inherit;
 }
 
 a:hover {
-  color: #535bf2;
+  color: var(--color-fg-anchor-hover);
   text-decoration: underline;
 }
 
@@ -123,7 +149,7 @@ a:hover {
   }
 
   .flex-child {
-    border: 5px solid var(--obsidian);
+    border: 5px solid var(--color-border-flex-child);
     border-radius: 10px;
     flex: 1 1 20%;
   }
@@ -145,40 +171,3 @@ a:hover {
   }
 }
 
-/* Dark */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: var(--oil);
-    /* obsidian background */
-    color: var(--snow);
-    /* snow text */
-  }
-
-  h1,
-  h2 {
-    color: var(--snow);
-  }
-
-  a {
-    color: #ff6e6e;
-    /* Different link color for dark mode */
-  }
-
-  .well {
-    background: var(--charcoal-gray);
-    /* Darker backgrounds for containers */
-  }
-
-  kbd {
-    background: #333333;
-    color: var(--alice-blue);
-  }
-
-  li {
-    border-bottom: 1px dashed var(--oil);
-  }
-
-  .flex-child {
-    border-color: #e0e0e0;
-  }
-}

@@ -16,6 +16,7 @@
   },
   "files": [
     "javascript/script.ts",
-    "components/vim.ts"
+    "javascript/components/vim.ts",
+    "javascript/components/button.ts"
   ]
 }
