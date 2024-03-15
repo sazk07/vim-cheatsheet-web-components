@@ -1,10 +1,10 @@
 "use strict";
 // get current theme
-const getCurrTheme = ({ localStorageTheme, sysSettingDark }) => {
+const getCurrTheme = ({ localStorageTheme, sysSettingsDark }) => {
     if (localStorageTheme) {
         return localStorageTheme;
     }
-    if (sysSettingDark.matches) {
+    if (sysSettingsDark.matches) {
         return "dark";
     }
     return "light";
@@ -25,8 +25,8 @@ const updateThemeOnHtml = ({ theme }) => {
 const button = document.querySelector("[data-theme-toggle]") ??
     document.createElement("button");
 const localStorageTheme = localStorage.getItem("theme");
-const sysSettingDark = window.matchMedia("(prefers-color-scheme: dark)");
-let currTheme = getCurrTheme({ localStorageTheme, sysSettingDark });
+const sysSettingsDark = window.matchMedia("(prefers-color-scheme: dark)");
+let currTheme = getCurrTheme({ localStorageTheme, sysSettingsDark });
 const isDark = currTheme === "dark";
 updateButton({ buttonEl: button, isDark });
 updateThemeOnHtml({ theme: currTheme });
