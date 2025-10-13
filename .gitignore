@@ -2,7 +2,6 @@ out
 /build
 /.svelte-kit
 dist/
-types/
 coverage/
 /package
 
