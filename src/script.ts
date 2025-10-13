@@ -140,13 +140,16 @@ const fetchData = async (url: string): Promise<Data | string> => {
 };
 
 const retrieveObject = (data: Data, node: HTMLElement) => {
-  const dataVals: Array<string | DataChild> = Object.values(data);
-  const dataChild: DataChild = dataVals.find((object) => {
-    if (typeof object === "object" && object !== null && "htmlId" in object) {
-      return object.htmlId === node?.id;
+  const dataVals: string[] | DataChild[] = Object.values(data);
+  const dataChild = dataVals.find((object) => {
+    if (!isDataChild(object)) {
+      return "";
     }
-    return false;
-  }) as DataChild;
+    return object.htmlId === node.id;
+  });
+  if (!dataChild) {
+    return "";
+  }
   return dataChild;
 };
 
@@ -154,7 +157,7 @@ const createCustomHeadings = (
   elemData: DataChild,
   heading: HTMLHeadingElement,
 ) => {
-  heading.textContent = elemData?.title ?? "";
+  heading.textContent = elemData.title ?? "";
 };
 
 const createCustomLists = (elemData: DataChild, vcUl: HTMLUListElement) => {
@@ -169,13 +172,13 @@ const createCustomLists = (elemData: DataChild, vcUl: HTMLUListElement) => {
     additional_keyword3,
     description,
   } of commands) {
-    const keywords: string[] = [
+    const keywords = [
       keyword,
       additional_keyword2,
       additional_keyword3,
     ]
       .map(sanitizeKeyword)
-      .filter((kw) => kw !== undefined) as string[];
+      .filter((kw) => kw !== undefined);
 
     const keywordString = keywords
       .map((kw, idx) => {
