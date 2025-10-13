@@ -40,20 +40,102 @@ interface Data {
   workingWithMultipleFiles: DataChild;
 }
 
-const fetchData = async (url: string): Promise<Data | Error> => {
+function isKeyword(obj: unknown): obj is Keyword {
+  return (
+    obj !== null &&
+    typeof obj === "object" &&
+    "keyword" in obj &&
+    typeof obj.keyword === "string" &&
+    "description" in obj &&
+    typeof obj.description === "string" &&
+    (!("additional_keyword2" in obj) ||
+      typeof obj.additional_keyword2 === "string") &&
+    (!("additional_keyword3" in obj) ||
+      typeof obj.additional_keyword3 === "string")
+  );
+}
+
+function isDataChild(obj: unknown): obj is DataChild {
+  return (
+    obj !== null &&
+    typeof obj === "object" &&
+    "commands" in obj &&
+    Array.isArray(obj.commands) &&
+    obj.commands.every((item) => isKeyword(item)) &&
+    (!("htmlId" in obj) || typeof obj.htmlId === "string") &&
+    (!("tip" in obj) || typeof obj.tip === "string") &&
+    (!("title" in obj) || typeof obj.title === "string")
+  );
+}
+
+function isData(obj: unknown): obj is Data {
+  return (
+    obj !== null &&
+    typeof obj === "object" &&
+    "title" in obj &&
+    typeof obj.title === "string" &&
+    "lang" in obj &&
+    typeof obj.lang === "string" &&
+    "lang_tag" in obj &&
+    typeof obj.lang_tag === "string" &&
+    "footer" in obj &&
+    typeof obj.footer === "string" &&
+    "global" in obj &&
+    isDataChild(obj.global) &&
+    "cursorMovement" in obj &&
+    isDataChild(obj.cursorMovement) &&
+    "insertMode" in obj &&
+    isDataChild(obj.insertMode) &&
+    "editing" in obj &&
+    isDataChild(obj.editing) &&
+    "markingText" in obj &&
+    isDataChild(obj.markingText) &&
+    "visualCommands" in obj &&
+    isDataChild(obj.visualCommands) &&
+    "registers" in obj &&
+    isDataChild(obj.registers) &&
+    "cutAndPaste" in obj &&
+    isDataChild(obj.cutAndPaste) &&
+    "diff" in obj &&
+    isDataChild(obj.diff) &&
+    "exiting" in obj &&
+    isDataChild(obj.exiting) &&
+    "specialRegisters" in obj &&
+    isDataChild(obj.specialRegisters) &&
+    "indentText" in obj &&
+    isDataChild(obj.indentText) &&
+    "languages" in obj &&
+    isDataChild(obj.languages) &&
+    "macros" in obj &&
+    isDataChild(obj.macros) &&
+    "marks" in obj &&
+    isDataChild(obj.marks) &&
+    "searchAndReplace" in obj &&
+    isDataChild(obj.searchAndReplace) &&
+    "searchMultipleFiles" in obj &&
+    isDataChild(obj.searchMultipleFiles) &&
+    "tabs" in obj &&
+    isDataChild(obj.tabs) &&
+    "workingWithMultipleFiles" in obj &&
+    isDataChild(obj.workingWithMultipleFiles)
+  );
+}
+
+const fetchData = async (url: string): Promise<Data | string> => {
   try {
     const dataPromise = await fetch(url);
     if (!dataPromise.ok) {
       throw new Error(dataPromise.statusText);
     }
-    const data: Data = await dataPromise.json();
-    if (!data) {
-      throw new Error("No data");
+    const data = (await dataPromise.json()) as Data[];
+    if (!isData(data)) {
+      throw new Error("Invalid data format received from API");
     }
     return data;
   } catch (error) {
-    console.error((error as Error).message);
-    return error as Error;
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error(msg);
+    return msg;
   }
 };
 
@@ -131,8 +213,9 @@ const main = async (): Promise<void> => {
   );
 
   // get relevant objects from data
-  const dataChild: DataChild[] = vimComponentNodes
-    .map((node) => retrieveObject(data, node))
+  const dataChild: DataChild[] = vimComponentNodes.map((node) =>
+    retrieveObject(data, node),
+  );
 
   // Headings, lists and tips
   for (const elemData of dataChild) {
