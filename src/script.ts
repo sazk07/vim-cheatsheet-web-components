@@ -31,7 +31,7 @@ interface Data {
   exiting: DataChild;
   specialRegisters: DataChild;
   indentText: DataChild;
-  languages: DataChild;
+  languages: { title: string };
   macros: DataChild;
   marks: DataChild;
   searchAndReplace: DataChild;
@@ -105,7 +105,10 @@ function isData(obj: unknown): obj is Data {
     "indentText" in obj &&
     isDataChild(obj.indentText) &&
     "languages" in obj &&
-    isDataChild(obj.languages) &&
+    obj.languages !== null &&
+    typeof obj.languages === "object" &&
+    "title" in obj.languages &&
+    typeof obj.languages.title === "string" &&
     "macros" in obj &&
     isDataChild(obj.macros) &&
     "marks" in obj &&
@@ -121,13 +124,13 @@ function isData(obj: unknown): obj is Data {
   );
 }
 
-const fetchData = async (url: string): Promise<Data | string> => {
+const fetchData = async (url: string) => {
   try {
     const dataPromise = await fetch(url);
     if (!dataPromise.ok) {
       throw new Error(dataPromise.statusText);
     }
-    const data = (await dataPromise.json()) as Data[];
+    const data: unknown = await dataPromise.json();
     if (!isData(data)) {
       throw new Error("Invalid data format received from API");
     }
@@ -141,11 +144,11 @@ const fetchData = async (url: string): Promise<Data | string> => {
 
 const retrieveObject = (data: Data, node: HTMLElement) => {
   const dataVals: string[] | DataChild[] = Object.values(data);
-  const dataChild = dataVals.find((object) => {
-    if (!isDataChild(object)) {
+  const dataChild = dataVals.find((obj) => {
+    if (!isDataChild(obj)) {
       return "";
     }
-    return object.htmlId === node.id;
+    return obj.htmlId === node.id;
   });
   if (!dataChild) {
     return "";
@@ -161,7 +164,6 @@ const createCustomHeadings = (
 };
 
 const createCustomLists = (elemData: DataChild, vcUl: HTMLUListElement) => {
-  const kbdArray = ["<kbd>", "</kbd>"];
   const sanitizeKeyword = (str: string | undefined): string | undefined => {
     return str?.replace(/</g, "&lt;");
   };
@@ -172,18 +174,14 @@ const createCustomLists = (elemData: DataChild, vcUl: HTMLUListElement) => {
     additional_keyword3,
     description,
   } of commands) {
-    const keywords = [
-      keyword,
-      additional_keyword2,
-      additional_keyword3,
-    ]
+    const keywords = [keyword, additional_keyword2, additional_keyword3]
       .map(sanitizeKeyword)
       .filter((kw) => kw !== undefined);
 
     const keywordString = keywords
       .map((kw, idx) => {
         const prefix = idx === 0 ? "" : " or ";
-        return `${prefix}${kbdArray[0]}${kw}${kbdArray[1]}`;
+        return `${prefix}<kbd>${kw}</kbd>`;
       })
       .join("");
 
@@ -194,7 +192,7 @@ const createCustomLists = (elemData: DataChild, vcUl: HTMLUListElement) => {
 };
 
 const createCustomTips = (elemData: DataChild, tip: HTMLDivElement) => {
-  tip.innerHTML = elemData?.tip ?? "";
+  tip.innerHTML = elemData.tip ?? "";
   if (!tip.innerHTML) {
     tip.style.display = "none";
   }
@@ -203,9 +201,9 @@ const createCustomTips = (elemData: DataChild, tip: HTMLDivElement) => {
 const main = async (): Promise<void> => {
   // Fetch data
   const data = await fetchData("data/en_us.json");
-  if (data instanceof Error) {
+  if (typeof data === "string") {
     const p = document.createElement("p");
-    p.textContent = data.message;
+    p.textContent = data;
     document.body.appendChild(p);
     return;
   }
@@ -216,14 +214,15 @@ const main = async (): Promise<void> => {
   );
 
   // get relevant objects from data
-  const dataChild: DataChild[] = vimComponentNodes.map((node) =>
-    retrieveObject(data, node),
-  );
+  const dataChild = vimComponentNodes.map((node) => retrieveObject(data, node));
 
   // Headings, lists and tips
   for (const elemData of dataChild) {
+    if (typeof elemData === "string") {
+      continue;
+    }
     const vimComponent: HTMLElement =
-      document.querySelector(`#${elemData.htmlId}`) ??
+      document.querySelector(`#${elemData.htmlId?.toString() ?? ""}`) ??
       document.createElement("vim-component");
     const vcHeading: HTMLHeadingElement =
       vimComponent.querySelector("[name='heading']") ??
@@ -252,4 +251,4 @@ const main = async (): Promise<void> => {
   footer.appendChild(anchor);
 };
 
-main();
+void main();

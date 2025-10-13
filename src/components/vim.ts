@@ -1,9 +1,6 @@
 "use strict";
 
 class VimComponent extends HTMLElement {
-  constructor() {
-    super();
-  }
   connectedCallback() {
     try {
       // creation
@@ -21,7 +18,8 @@ class VimComponent extends HTMLElement {
       shadow.appendChild(linkElem);
       shadow.appendChild(vimTemplate.content.cloneNode(true));
     } catch (error) {
-      console.error((error as Error).message)
+      const msg = error instanceof Error ? error.message : String(error);
+      console.error(msg);
     }
   }
 }
