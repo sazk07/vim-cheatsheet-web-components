@@ -4,7 +4,7 @@ import {
   createCustomHeadings,
   createCustomLists,
   createCustomTips,
-} from "./utils/customUi";
+} from "./utils/custom_ui";
 import { extractVimTip, fetchData } from "./utils/utils";
 
 const main = async () => {
