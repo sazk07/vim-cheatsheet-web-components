@@ -1,3 +1,13 @@
+export interface Theme {
+  localStorageTheme: string | null;
+  sysSettingsDark: MediaQueryList;
+}
+
+export interface ButtonSettings {
+  buttonEl: Element;
+  isDark: boolean;
+}
+
 interface Keyword {
   keyword: string;
   description: string;

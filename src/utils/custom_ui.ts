@@ -1,5 +1,3 @@
-"use strict";
-
 import type { DataChild } from "../types/data.types";
 
 export const createCustomHeadings = (

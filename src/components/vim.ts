@@ -1,5 +1,3 @@
-"use strict";
-
 class VimComponent extends HTMLElement {
   connectedCallback() {
     try {
