@@ -36,7 +36,7 @@ export interface Data {
   registers: DataChild;
   cutAndPaste: DataChild;
   diff: DataChild;
-  exiting: DataChild;
+  commandLine: DataChild;
   specialRegisters: DataChild;
   indentText: DataChild;
   languages: { title: string };
@@ -106,8 +106,8 @@ export function isData(obj: unknown): obj is Data {
     isDataChild(obj.cutAndPaste) &&
     "diff" in obj &&
     isDataChild(obj.diff) &&
-    "exiting" in obj &&
-    isDataChild(obj.exiting) &&
+    "commandLine" in obj &&
+    isDataChild(obj.commandLine) &&
     "specialRegisters" in obj &&
     isDataChild(obj.specialRegisters) &&
     "indentText" in obj &&

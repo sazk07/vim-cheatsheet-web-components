@@ -25,6 +25,32 @@
       {
         "keyword": "K",
         "description": "open man page for word under the cursor"
+      },
+      {
+        "keyword": ":w",
+        "description": "write (save) to file"
+      },
+      {
+        "keyword": ":w !sudo tee %",
+        "description": "write to current file using sudo"
+      },
+      {
+        "keyword": ":q",
+        "description": "quit"
+      },
+      {
+        "keyword": ":q!",
+        "description": "force quit (discards unsaved changes)"
+      },
+      {
+        "keyword": ":wq",
+        "additional_keyword2": ":x",
+        "additional_keyword3": "ZZ",
+        "description": "write (save) and quit"
+      },
+      {
+        "keyword": ":wqa",
+        "description": "write, quit, all"
       }
     ],
     "tip": "Run <kbd>vimtutor</kbd> in a terminal to learn the first Vim commands."
@@ -783,37 +809,32 @@
       }
     ]
   },
-  "exiting": {
-    "title": "Exiting",
-    "htmlId": "exiting",
+  "commandLine": {
+    "title": "Command Line",
+    "htmlId": "command-line",
     "commands": [
       {
-        "keyword": ":w",
-        "description": "write (save) the file but don't exit"
+        "keyword": "C-h",
+        "description": "delete one character in command mode"
       },
       {
-        "keyword": ":w !sudo tee %",
-        "description": "write out the current file using sudo"
+        "keyword": "C-w",
+        "description": "delete one word in command mode"
       },
       {
-        "keyword": ":wq",
-        "additional_keyword2": ":x",
-        "additional_keyword3": "ZZ",
-        "description": "write (save) and quit"
+        "keyword": "C-u",
+        "description": "delete entire line in command mode"
       },
       {
-        "keyword": ":q",
-        "description": "quit (fails if there are unsaved changes)"
+        "keyword": "<C-v><Esc>",
+        "description": "represents escape key inside command mode"
       },
       {
-        "keyword": ":q!",
-        "description": "quit and throw away unsaved changes"
-      },
-      {
-        "keyword": ":wqa",
-        "description": "write (save) and quit on all tabs"
+        "keyword": ":{range}norm {commands}",
+        "description": "executes normal mode {commands} in command mode for each line in range {range}"
       }
-    ]
+    ],
+    "tip": "<kbd>:%norm A my text</kbd> will append the words 'my text' at the end of all lines in the file. <kbd>:%norm 0i*<C-v><Esc>ea*</kbd> executes the following steps: start of line, insert mode, *, escape key, end of word, append, *. This will put a * around every starting word."
   },
   "searchAndReplace": {
     "title": "Search and replace",
